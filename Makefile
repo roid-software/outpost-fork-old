@@ -156,6 +156,17 @@ test/coverage/html:
 migrate:
 	./build/dev/dev.sh run --rm migrate
 
+# Native (no compose) dev against the services configured in .env.
+migrate/local:
+	go run -tags nomsgpack ./cmd/outpost migrate apply $(ARGS)
+
+migrate/local/plan:
+	go run -tags nomsgpack ./cmd/outpost migrate plan
+
+# Runs the Go server and the portal's vite dev server together (see .air.local.toml).
+dev/local:
+	air -c .air.local.toml
+
 redis/debug:
 	go run cmd/redis-debug/main.go $(ARGS)
 
